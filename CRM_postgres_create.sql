@@ -137,8 +137,6 @@ CREATE TABLE "House_apartments" (
 
 ALTER TABLE "User" ADD CONSTRAINT "User_fk0" FOREIGN KEY ("photo_id") REFERENCES "Photo"("id");
 
-
-
 ALTER TABLE "property" ADD CONSTRAINT "property_fk0" FOREIGN KEY ("apartment_id") REFERENCES "Apartment"("id");
 ALTER TABLE "property" ADD CONSTRAINT "property_fk1" FOREIGN KEY ("user_id") REFERENCES "User"("id");
 
