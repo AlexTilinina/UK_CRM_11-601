@@ -30,18 +30,4 @@ public class User {
     private String city;
 
     private String phoneNumber;
-
-    @OneToOne
-    @JoinColumn(name = "photo_id", referencedColumnName = "id", table = "photo")
-    private long photoId;
-
-    public User(String login, String password, String role, String name, String surname, String city, String phoneNumber) {
-        this.login = login;
-        this.password = password;
-        this.role = role;
-        this.name = name;
-        this.surname = surname;
-        this.city = city;
-        this.phoneNumber = phoneNumber;
-    }
 }
