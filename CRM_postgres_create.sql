@@ -5,24 +5,12 @@ CREATE TABLE "User" (
 	"role" varchar(30) NOT NULL,
 	"name" varchar(30) NOT NULL,
 	"surname" varchar(30) NOT NULL,
-	"photo_id" integer NOT NULL,
 	"city" varchar(30) NOT NULL,
 	"phone_number" varchar(30) NOT NULL,
 	CONSTRAINT User_pk PRIMARY KEY ("id")
 ) WITH (
   OIDS=FALSE
 );
-
-
-
-CREATE TABLE "Photo" (
-	"id" serial NOT NULL,
-	"path" TEXT NOT NULL,
-	CONSTRAINT Photo_pk PRIMARY KEY ("id")
-) WITH (
-  OIDS=FALSE
-);
-
 
 
 CREATE TABLE "Apartment" (
@@ -134,9 +122,6 @@ CREATE TABLE "House_apartments" (
 );
 
 
-
-ALTER TABLE "User" ADD CONSTRAINT "User_fk0" FOREIGN KEY ("photo_id") REFERENCES "Photo"("id");
-
 ALTER TABLE "property" ADD CONSTRAINT "property_fk0" FOREIGN KEY ("apartment_id") REFERENCES "Apartment"("id");
 ALTER TABLE "property" ADD CONSTRAINT "property_fk1" FOREIGN KEY ("user_id") REFERENCES "User"("id");
 
@@ -151,6 +136,6 @@ ALTER TABLE "bill" ADD CONSTRAINT "bill_fk0" FOREIGN KEY ("apartment_id") REFERE
 ALTER TABLE "Counter" ADD CONSTRAINT "Counter_fk0" FOREIGN KEY ("apartment_id") REFERENCES "Apartment"("id");
 
 
-ALTER TABLE "House_apartments" ADD CONSTRAINT "House_apartments_fk0" FOREIGN KEY ("house_id") REFERENCES "Apartment_house"("id");
+ALTER TABLE "House_apartments" ADD CONSTRAINT "House_apartments_fk0" FOREIGN KEY ("house_id") REFERENCES Apartments_house("id");
 ALTER TABLE "House_apartments" ADD CONSTRAINT "House_apartments_fk1" FOREIGN KEY ("apartment_id") REFERENCES "Apartment"("id");
 
