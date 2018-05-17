@@ -1,4 +1,4 @@
-CREATE TABLE "User" (
+CREATE TABLE "user" (
 	"id" serial NOT NULL,
 	"login" varchar(30) NOT NULL UNIQUE,
 	"password" varchar(60) NOT NULL,
@@ -12,8 +12,7 @@ CREATE TABLE "User" (
   OIDS=FALSE
 );
 
-
-CREATE TABLE "Apartment" (
+CREATE TABLE "apartment" (
 	"id" serial NOT NULL,
 	"number" integer NOT NULL,
 	"gas" BOOLEAN NOT NULL,
@@ -24,8 +23,6 @@ CREATE TABLE "Apartment" (
   OIDS=FALSE
 );
 
-
-
 CREATE TABLE "property" (
 	"id" serial NOT NULL,
 	"apartment_id" integer NOT NULL,
@@ -35,9 +32,7 @@ CREATE TABLE "property" (
   OIDS=FALSE
 );
 
-
-
-CREATE TABLE "Ticket" (
+CREATE TABLE "ticket" (
 	"id" serial NOT NULL,
 	"message" TEXT NOT NULL,
 	"theme" TEXT NOT NULL,
@@ -47,26 +42,12 @@ CREATE TABLE "Ticket" (
   OIDS=FALSE
 );
 
-
-
-CREATE TABLE "Ticket_status" (
-	"id" serial NOT NULL,
-	"status" varchar(30) NOT NULL,
-	CONSTRAINT Ticket_status_pk PRIMARY KEY ("id")
-) WITH (
-  OIDS=FALSE
-);
-
-
-
-CREATE TABLE "User_ticket" (
+CREATE TABLE "user_ticket" (
 	"user_id" integer NOT NULL,
 	"ticket_id" integer NOT NULL
 ) WITH (
   OIDS=FALSE
 );
-
-
 
 CREATE TABLE "bill" (
 	"id" serial NOT NULL,
@@ -81,9 +62,7 @@ CREATE TABLE "bill" (
   OIDS=FALSE
 );
 
-
-
-CREATE TABLE "Counter" (
+CREATE TABLE "counter" (
 	"id" serial NOT NULL,
 	"apartment_id" integer NOT NULL,
 	"gas" integer NOT NULL,
@@ -94,9 +73,7 @@ CREATE TABLE "Counter" (
   OIDS=FALSE
 );
 
-
-
-CREATE TABLE "Apartment_house" (
+CREATE TABLE "apartment_house" (
 	"id" serial NOT NULL,
 	"city" varchar(40) NOT NULL,
 	"street" varchar(40) NOT NULL,
@@ -110,9 +87,7 @@ CREATE TABLE "Apartment_house" (
   OIDS=FALSE
 );
 
-
-
-CREATE TABLE "House_apartments" (
+CREATE TABLE "house_apartments" (
 	"id" serial NOT NULL,
 	"house_id" integer NOT NULL,
 	"apartment_id" integer NOT NULL,
@@ -121,21 +96,16 @@ CREATE TABLE "House_apartments" (
   OIDS=FALSE
 );
 
-
 ALTER TABLE "property" ADD CONSTRAINT "property_fk0" FOREIGN KEY ("apartment_id") REFERENCES "Apartment"("id");
-ALTER TABLE "property" ADD CONSTRAINT "property_fk1" FOREIGN KEY ("user_id") REFERENCES "User"("id");
+ALTER TABLE "property" ADD CONSTRAINT "property_fk1" FOREIGN KEY ("user_id") REFERENCES "user"("id");
 
-ALTER TABLE "Ticket" ADD CONSTRAINT "Ticket_fk0" FOREIGN KEY ("status_id") REFERENCES "Ticket_status"("id");
-
-
-ALTER TABLE "User_ticket" ADD CONSTRAINT "User_ticket_fk0" FOREIGN KEY ("user_id") REFERENCES "User"("id");
-ALTER TABLE "User_ticket" ADD CONSTRAINT "User_ticket_fk1" FOREIGN KEY ("ticket_id") REFERENCES "Ticket"("id");
+ALTER TABLE "user_ticket" ADD CONSTRAINT "User_ticket_fk0" FOREIGN KEY ("user_id") REFERENCES "user"("id");
+ALTER TABLE "user_ticket" ADD CONSTRAINT "User_ticket_fk1" FOREIGN KEY ("ticket_id") REFERENCES "ticket"("id");
 
 ALTER TABLE "bill" ADD CONSTRAINT "bill_fk0" FOREIGN KEY ("apartment_id") REFERENCES "Apartment"("id");
 
-ALTER TABLE "Counter" ADD CONSTRAINT "Counter_fk0" FOREIGN KEY ("apartment_id") REFERENCES "Apartment"("id");
+ALTER TABLE "counter" ADD CONSTRAINT "Counter_fk0" FOREIGN KEY ("apartment_id") REFERENCES "Apartment"("id");
 
-
-ALTER TABLE "House_apartments" ADD CONSTRAINT "House_apartments_fk0" FOREIGN KEY ("house_id") REFERENCES Apartments_house("id");
-ALTER TABLE "House_apartments" ADD CONSTRAINT "House_apartments_fk1" FOREIGN KEY ("apartment_id") REFERENCES "Apartment"("id");
+ALTER TABLE "house_apartments" ADD CONSTRAINT "House_apartments_fk0" FOREIGN KEY ("house_id") REFERENCES Apartments_house("id");
+ALTER TABLE "house_apartments" ADD CONSTRAINT "House_apartments_fk1" FOREIGN KEY ("apartment_id") REFERENCES "Apartment"("id");
 

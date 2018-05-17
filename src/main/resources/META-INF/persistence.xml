@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.0"
+             xmlns="http://java.sun.com/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+             xsi:schemaLocation="http://java.sun.com/xml/ns/persistence http://java.sun.com/xml/ns/persistence/persistence_2_0.xsd">
+    <persistence-unit name="SaveLinks" transaction-type="RESOURCE_LOCAL">
+        <!-- Persistence provider -->
+        <provider>org.hibernate.jpa.HibernatePersistenceProvider</provider>
+        <!-- Entity classes -->
+        <class>ru.itis.model.User</class>
+        <properties>
+            <property name="ru.itis.hibernate.connection.url" value="jdbc:postgresql://localhost:5432/SaveLinks" />
+            <property name="ru.itis.hibernate.connection.driver_class" value="org.postgresql.Driver" />
+            <property name="ru.itis.hibernate.connection.username" value="postgres" />
+            <property name="ru.itis.hibernate.connection.password" value="hrustalik1" />
+
+            <property name="ru.itis.hibernate.dialect" value="org.ru.itis.hibernate.dialect.PostgreSQLDialect" />
+            <property name="ru.itis.hibernate.hbm2ddl.auto" value="create-drop" />
+        </properties>
+    </persistence-unit>
+</persistence>
