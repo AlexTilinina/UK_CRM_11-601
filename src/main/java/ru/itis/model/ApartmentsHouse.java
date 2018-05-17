@@ -1,4 +1,4 @@
-package model;
+package ru.itis.model;
 
 import lombok.*;
 import javax.persistence.*;
@@ -10,6 +10,7 @@ import javax.persistence.*;
 @Builder
 
 @Entity
+@Table(name = "apartments_house")
 public class ApartmentsHouse {
 
     @Id
