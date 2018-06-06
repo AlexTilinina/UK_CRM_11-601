@@ -11,7 +11,6 @@ import ru.itis.models.Role;
 import ru.itis.models.User;
 import ru.itis.repositories.CityRepository;
 import ru.itis.repositories.PropertyOwnerRepository;
-import ru.itis.repositories.UserRepository;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,14 +25,10 @@ public class RegistrationService {
     private CityRepository cityRepository;
 
     @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
     private PropertyOwnerRepository ownerRepository;
 
     @Transactional
     public void register(UserRegistration userRegistration) {
-
         User user = User.builder()
                 .firstName(userRegistration.getFirstName())
                 .secondName(userRegistration.getSecondName())
@@ -46,6 +41,10 @@ public class RegistrationService {
 
         PropertyOwner owner = PropertyOwner.builder()
                 .user(user)
+                .claims(new HashSet<>())
+                .meters(new HashSet<>())
+                .payments(new HashSet<>())
+                .properties(new HashSet<>())
                 .build();
 
         City city = findCity(userRegistration.getCity());
@@ -64,16 +63,8 @@ public class RegistrationService {
     }
 
     private void setOwners(City city, PropertyOwner owner) {
-        if (city.getOwners() == null) {
-            Set<PropertyOwner> owners = new HashSet<>();
-            owners.add(owner);
-            city.setOwners(owners);
-        }
-        else {
-            Set<PropertyOwner> owners = city.getOwners();
-            owners.add(owner);
-            city.setOwners(owners);
-        }
+        Set<PropertyOwner> owners = city.getOwners();
+        owners.add(owner);
+        city.setOwners(owners);
     }
-
 }

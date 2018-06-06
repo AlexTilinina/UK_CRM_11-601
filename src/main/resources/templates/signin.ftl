@@ -8,7 +8,7 @@
                     <div class="col-md-4 ml-auto mr-auto">
                         <div class="card card-signup">
                             <h2 class="card-title text-center">Авторизация</h2>
-                            <form class="form" method="post" action="/login">
+                            <form class="form" method="post" action="/sign-in">
                                 <div class="card-body">
                                     <span class="bmd-form-group"><div class="input-group">
                                       <div class="input-group-prepend">
@@ -31,7 +31,7 @@
 
                                     <div class="form-check">
                                         <label class="form-check-label">
-                                            <input class="form-check-input" type="checkbox" name="remember-me" value="">
+                                            <input class="form-check-input" type="checkbox" name="remember-me">
                                             Запомнить меня
                                             <span class="form-check-sign">
                                                 <span class="check"></span>

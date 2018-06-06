@@ -4,16 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
-import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 import ru.itis.dto.NewsDto;
 import ru.itis.models.News;
-import ru.itis.models.User;
 import ru.itis.services.AuthenticationService;
 import ru.itis.services.NewsService;
 
@@ -27,13 +22,10 @@ public class MainPageController {
     private NewsService newsService;
 
     @GetMapping("/")
-    public String getMain(Authentication authentication, @ModelAttribute("model") ModelMap modelMap) {
-        if (authentication != null) {
-            User user = authenticationService.getUserByAuthentication(authentication);
-            modelMap.addAttribute("name", user.getSecondName());
-        }
-        return "main";
+    public String redirectToNews(){
+        return "redirect:/news";
     }
+
     @GetMapping("/news")
     public String getNews(@ModelAttribute("model") ModelMap model, Pageable pageable) {
         if (pageable.getPageSize() == 20){
@@ -50,6 +42,7 @@ public class MainPageController {
         return "news";
 
     }
+
     @GetMapping("/news/{id}")
     public String getViewNews(@PathVariable("id") Long id, @ModelAttribute("model") ModelMap model){
         News news = newsService.getFullNews(id);

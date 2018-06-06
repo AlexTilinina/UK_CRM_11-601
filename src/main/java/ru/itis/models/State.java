@@ -1,5 +1,5 @@
 package ru.itis.models;
 
 public enum State {
-    CONFIRMED, NOT_CONFIRMED, IN_PROCESS,
+    NEW, IN_PROCESS, CLOSED, FEEDBACK
 }
