@@ -10,7 +10,6 @@ import java.util.Set;
 @Table(name = "property_owner")
 @Getter
 @Setter
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -29,16 +28,20 @@ public class PropertyOwner {
             joinColumns = @JoinColumn(name = "owner_id"))
     private Set<Property> properties;
 
-    @OneToMany(mappedBy = "propertyOwner")
+    @OneToMany(mappedBy = "propertyOwner", cascade = CascadeType.ALL)
     private Set<Claim> claims;
 
-    @OneToMany(mappedBy = "propertyOwner")
+    @OneToMany(mappedBy = "propertyOwner", cascade = CascadeType.ALL)
     private Set<Meter> meters;
 
-    @OneToMany(mappedBy = "propertyOwner")
+    @OneToMany(mappedBy = "propertyOwner", cascade = CascadeType.ALL)
     private Set<Payment> payments;
 
     @OneToOne(mappedBy = "owner", cascade = CascadeType.ALL)
     private User user;
-}
 
+    @Override
+    public String toString() {
+        return "";
+    }
+}

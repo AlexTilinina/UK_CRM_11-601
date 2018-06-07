@@ -1,9 +1,6 @@
 package ru.itis.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,7 +8,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "service_type")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -23,9 +21,14 @@ public class ServiceType {
     @NotNull
     private String type;
 
-    @OneToMany(mappedBy = "serviceType")
+    @OneToMany(mappedBy = "serviceType", cascade = CascadeType.ALL)
     private Set<Bill> bills;
 
-    @OneToMany(mappedBy = "serviceType")
+    @OneToMany(mappedBy = "serviceType", cascade = CascadeType.ALL)
     private Set<Meter> meters;
+
+    @Override
+    public String toString() {
+        return "";
+    }
 }

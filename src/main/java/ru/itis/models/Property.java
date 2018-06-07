@@ -1,9 +1,6 @@
 package ru.itis.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,7 +8,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "property")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -37,32 +35,36 @@ public class Property {
     private boolean intercom;
 
     @NotNull
-    private Integer houseNumber;
+    private String houseNumber;
 
-    private Integer buildingNumber;
+    private String buildingNumber;
 
-    private Integer flatNumber;
+    private String flatNumber;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "property_type_id")
     private PropertyType type;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private City city;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Street street;
 
-    @OneToMany(mappedBy = "property")
+    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL)
     private Set<Meter> meters;
 
-    @OneToMany(mappedBy = "property")
+    @OneToMany(mappedBy = "property", cascade = CascadeType.ALL)
     private Set<Bill> bills;
 
     @ManyToMany
     @JoinTable(name = "users_property",
-    inverseJoinColumns = @JoinColumn(name = "owner_id"),
-    joinColumns = @JoinColumn(name = "property_id"))
+            inverseJoinColumns = @JoinColumn(name = "owner_id"),
+            joinColumns = @JoinColumn(name = "property_id"))
     private Set<PropertyOwner> owners;
 
+    @Override
+    public String toString() {
+        return "";
+    }
 }

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import ru.itis.dto.ClaimDto;
 import ru.itis.models.Claim;
+import ru.itis.models.Employee;
 import ru.itis.models.PropertyOwner;
 import ru.itis.models.State;
 import ru.itis.repositories.ClaimRepository;
@@ -17,8 +18,14 @@ public class ClaimsService {
     @Autowired
     private ClaimRepository claimRepository;
 
-    public List<Claim> getAllClaims(PropertyOwner owner) {
+    public List<Claim> getAllClaimsByOwner(PropertyOwner owner) {
+
         return claimRepository.findAllByPropertyOwner(owner);
+    }
+
+    public List<Claim> getAllClaims() {
+
+        return claimRepository.findAll();
     }
 
     public void add(ClaimDto claimDto, PropertyOwner propertyOwner) {
@@ -36,6 +43,10 @@ public class ClaimsService {
         return claimRepository.findAllByPropertyOwnerAndState(owner, getState(filter));
     }
 
+    public List<Claim> getAllByFilter(String filter) {
+        return claimRepository.findAllByState(getState(filter));
+    }
+
     private State getState(String state) {
         if (state.equals(State.NEW.toString())) {
             return State.NEW;
@@ -48,5 +59,19 @@ public class ClaimsService {
         }
         else
             return State.CLOSED;
+    }
+
+    public void addAnswer(Long id, String answer, Employee employee) {
+        Claim claim = claimRepository.findById(id);
+        claim.setAnswer(answer);
+        claim.setEmployee(employee);
+        claim.setState(State.CLOSED);
+        claimRepository.save(claim);
+    }
+
+    public void addState(Long id, String state) {
+        Claim claim = claimRepository.findById(id);
+        claim.setState(getState(state));
+        claimRepository.save(claim);
     }
 }

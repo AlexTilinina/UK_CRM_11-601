@@ -12,4 +12,8 @@ public interface ClaimRepository extends JpaRepository<Claim, Long> {
     List<Claim> findAllByPropertyOwner(PropertyOwner propertyOwner);
 
     List<Claim> findAllByPropertyOwnerAndState(PropertyOwner propertyOwner, State state);
+
+    List<Claim> findAllByState(State state);
+
+    Claim findById(Long id);
 }

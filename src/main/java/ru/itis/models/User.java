@@ -6,13 +6,11 @@ import org.hibernate.validator.constraints.Email;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Size;
-import java.util.Set;
 
 @Entity
 @Table(name = "users")
 @Getter
 @Setter
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -49,5 +47,8 @@ public class User {
     @OneToOne
     private Employee employee;
 
-
+    @Override
+    public String toString() {
+        return "";
+    }
 }

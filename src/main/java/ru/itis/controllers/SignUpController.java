@@ -47,7 +47,7 @@ public class SignUpController {
     @GetMapping("admin/sign-up")
     public String getEmployeeSignup(@ModelAttribute("model")ModelMap model){
         model.addAttribute("positions", positionService.getAllPositions());
-        return "employee-signup.ftl";
+        return "employee-signup";
     }
 
     @PostMapping("admin/sign-up")

@@ -1,9 +1,6 @@
 package ru.itis.models;
 
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -11,7 +8,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "street")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -24,9 +22,14 @@ public class Street {
     @NotNull
     private String name;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY, cascade = CascadeType.ALL)
     private City city;
 
-    @OneToMany(mappedBy = "street")
+    @OneToMany(mappedBy = "street", cascade = CascadeType.ALL)
     private Set<Property> properties;
+
+    @Override
+    public String toString() {
+        return "";
+    }
 }

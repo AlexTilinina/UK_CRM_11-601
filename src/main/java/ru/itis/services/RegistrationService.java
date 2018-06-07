@@ -53,7 +53,6 @@ public class RegistrationService {
         owner.setCity(city);
         user.setOwner(owner);
 
-        cityRepository.save(city);
         ownerRepository.save(owner);
     }
 

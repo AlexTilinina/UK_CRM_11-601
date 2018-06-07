@@ -8,9 +8,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "city")
-@Data@Getter
+@Getter
 @Setter
-@ToString
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -23,12 +22,17 @@ public class City {
     @NotNull
     private String name;
 
-    @OneToMany(mappedBy = "city", fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
     private Set<PropertyOwner> owners;
 
-    @OneToMany(mappedBy = "city")
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
     private Set<Property> properties;
 
-    @OneToMany(mappedBy = "city")
+    @OneToMany(mappedBy = "city", cascade = CascadeType.ALL)
     private Set<Street> streets;
+
+    @Override
+    public String toString() {
+        return "";
+    }
 }

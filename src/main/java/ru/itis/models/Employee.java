@@ -7,7 +7,8 @@ import java.util.Set;
 
 @Entity
 @Table(name = "employee")
-@Data
+@Getter
+@Setter
 @AllArgsConstructor
 @NoArgsConstructor
 @Builder
@@ -17,10 +18,10 @@ public class Employee {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     private Position position;
 
-    @OneToMany(mappedBy = "employee")
+    @OneToMany(mappedBy = "employee", cascade = CascadeType.ALL)
     private Set<Claim> claims;
 
     @OneToOne(mappedBy = "employee", cascade = CascadeType.ALL)
