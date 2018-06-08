@@ -18,6 +18,9 @@ public class ClaimsService {
     @Autowired
     private ClaimRepository claimRepository;
 
+    @Autowired
+    private FileService fileService;
+
     public List<Claim> getAllClaimsByOwner(PropertyOwner owner) {
 
         return claimRepository.findAllByPropertyOwner(owner);
@@ -29,12 +32,14 @@ public class ClaimsService {
     }
 
     public void add(ClaimDto claimDto, PropertyOwner propertyOwner) {
+        fileService.upload(claimDto.getFile());
         Claim claim = Claim.builder()
                 .title(claimDto.getTitle())
                 .description(claimDto.getDescription())
                 .state(State.NEW)
                 .date(new Date())
                 .propertyOwner(propertyOwner)
+                .filePath(claimDto.getFile().getOriginalFilename())
                 .build();
         claimRepository.save(claim);
     }

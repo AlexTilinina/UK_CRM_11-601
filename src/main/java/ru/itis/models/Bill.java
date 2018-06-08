@@ -3,7 +3,6 @@ package ru.itis.models;
 import lombok.*;
 
 import javax.persistence.*;
-import java.util.Set;
 
 @Entity
 @Table(name = "bill")
@@ -30,8 +29,8 @@ public class Bill {
     @JoinColumn(name = "service_type")
     private ServiceType serviceType;
 
-    @OneToMany(mappedBy = "bill", cascade = CascadeType.ALL)
-    private Set<Payment> payments;
+    @OneToOne(mappedBy = "bill", cascade = CascadeType.ALL)
+    private Payment payment;
 
     @Override
     public String toString() {

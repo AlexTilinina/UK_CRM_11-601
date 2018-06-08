@@ -49,7 +49,7 @@
                                 </div>
                             </div>
 
-                  <#if employee??>
+                  <#if (model.role == "EMPLOYEE")>
 
                        <div class="form-group bmd-form-group">
                            <label for="selectPosition" class="bmd-label-static">Изменить должность:</label>
@@ -67,7 +67,7 @@
                            </div>
                        </div>
 
-                  <#else >
+                  <#elseif (model.role == "USER")>
 
                        <div class="form-group bmd-form-group">
                            <label for="selectCity" class="bmd-label-static">Изменить город:</label>
@@ -78,68 +78,13 @@
                       </span></div>
                                <select name="city" class="form-control " id="selectCity">
                               <#list model.cities as city>
-                                  <option value=${city.name}>${city.name}</option>
+                                  <#assign cityId>${city.id}</#assign>
+                                  <option value=${cityId}>${city.name}</option>
                               </#list>
                                </select>
                            </div>
                        </div>
-
-                        <div class="form-group bmd-form-group">
-                            <label for="selectStreet" class="bmd-label-static">Изменить улицу:</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                              <span class="input-group-text">
-                                <i class="material-icons">home</i>
-                              </span>
-                                </div>
-                                <select name="street" class="form-control" id="selectStreet">
-                                    <option>Не выбрано</option>
-                                </select>
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="left-label" for="inputHouseNumber">Изменить номер дома:</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                            <span class="input-group-text">
-                              <i class="material-icons">edit</i>
-                            </span>
-                                </div>
-                          <#assign houseNumber>${model.user.propertyOwner.property.houseNumber}</#assign>
-                                <input type="number" class="form-control" name="houseNumber" id="inputHouseNumber" value="${houseNumber}">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="left-label" for="inputBuildingNumber">Изменить корпус:</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                            <span class="input-group-text">
-                              <i class="material-icons">edit</i>
-                            </span>
-                                </div>
-                          <#assign buildingNumber>${model.user.propertyOwner.property.buildingNumber}</#assign>
-                                <input type="number" class="form-control" name="buildingNumber" id="inputBuildingNumber" value="${buildingNumber}">
-                            </div>
-                        </div>
-
-                        <div class="form-group">
-                            <label class="left-label" for="inputFlatNumber">Изменить номер квартиры:</label>
-                            <div class="input-group">
-                                <div class="input-group-prepend">
-                            <span class="input-group-text">
-                              <i class="material-icons">edit</i>
-                            </span>
-                                </div>
-                          <#assign flatNumber>${model.user.propertyOwner.property.flatNumber}</#assign>
-                                <input type="number" class="form-control" name="flatNumber" id="inputFlatNumber" value="${flatNumber}">
-                            </div>
-                        </div>
-
                   </#if>
-
-
                             <div class="card-footer justify-content-center">
                                 <button type="submit" class="btn btn-primary btn-lg btn-success">Сохранить</button>
                             </div>

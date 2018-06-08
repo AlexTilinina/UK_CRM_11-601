@@ -1,6 +1,7 @@
 package ru.itis.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
@@ -10,14 +11,11 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.itis.dto.EmployeeRegistration;
 import ru.itis.dto.UserRegistration;
-import ru.itis.services.CityService;
-import ru.itis.services.EmployeeService;
-import ru.itis.services.PositionService;
-import ru.itis.services.RegistrationService;
+import ru.itis.models.User;
+import ru.itis.services.*;
 
 import javax.validation.Valid;
 
-@Controller
 public class SignUpController {
 
     @Autowired
@@ -32,6 +30,9 @@ public class SignUpController {
     @Autowired
     private PositionService positionService;
 
+    @Autowired
+    private AuthenticationService authenticationService;
+
     @GetMapping("/sign-up")
     public String getSignup(@ModelAttribute("model")ModelMap model){
         model.addAttribute("cities", cityService.getAllCities());
@@ -45,8 +46,10 @@ public class SignUpController {
     }
 
     @GetMapping("admin/sign-up")
-    public String getEmployeeSignup(@ModelAttribute("model")ModelMap model){
+    public String getEmployeeSignup(Authentication authentication, @ModelAttribute("model")ModelMap model){
         model.addAttribute("positions", positionService.getAllPositions());
+        User user = authenticationService.getUserByAuthentication(authentication);
+        model.addAttribute("role", user.getRole().toString());
         return "employee-signup";
     }
 

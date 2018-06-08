@@ -57,4 +57,27 @@ public class PropertyService {
         propertyRepository.save(property);
         propertyTypeRepository.save(propertyType);
     }
+
+    public Property getPropertyById(Long id) {
+        return propertyRepository.findById(id);
+    }
+
+    public void edit(PropertyDto propertyDto, Long id) {
+        Property property = propertyRepository.findById(id);
+        City city = cityRepository.findById(Long.parseLong(propertyDto.getCity()));
+        Street street = streetRepository.findByName(propertyDto.getStreet());
+
+        PropertyType propertyType = propertyTypeRepository.findById(Long.parseLong(propertyDto.getType()));
+        property.setCity(city);
+        property.setHouseNumber(propertyDto.getHouseNumber());
+        property.setBuildingNumber(propertyDto.getBuildingNumber());
+        property.setFlatNumber(propertyDto.getFlatNumber());
+        property.setStreet(street);
+        property.setType(propertyType);
+        propertyRepository.save(property);
+    }
+
+    public void delete(Long id) {
+        propertyRepository.delete(id);
+    }
 }

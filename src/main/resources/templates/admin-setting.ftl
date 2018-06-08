@@ -226,6 +226,56 @@
                 </div>
             </div>
 
+            <div class="col-md-6">
+                <div class="card">
+                    <div class="card-body">
+                        <h5 class="card-title">Список сервисов</h5>
+                        <p class="card-text">Просмотр и редактирование списка сервисов</p>
+                        <ul class="list-group list-group-flush">
+                        <#list model.services as service>
+                            <li class="list-group-item">${service.type}</li>
+                        </#list>
+                        </ul>
+                        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#addService">
+                            Добавить сервис
+                        </button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Modal -->
+            <div class="modal fade" id="addService" tabindex="-1" role="dialog" aria-labelledby="addServiceLabel" aria-hidden="true">
+                <div class="modal-dialog" role="document">
+                    <div class="modal-content">
+                        <div class="modal-header">
+                            <h5 class="modal-title" id="addServiceLabel">Добавить сервис</h5>
+                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                            </button>
+                        </div>
+                        <div class="modal-body">
+                            <form class="form" method="post" action="/admin/setting/add/service">
+                                <div class="form-group">
+                                    <label class="left-label" for="inputService">Введите название типа:</label>
+                                    <div class="input-group">
+                                        <div class="input-group-prepend">
+                                            <span class="input-group-text">
+                                              <i class="material-icons">home</i>
+                                            </span>
+                                        </div>
+                                        <input type="text" class="form-control" name="service" id="inputService" placeholder="Тип">
+                                    </div>
+                                </div>
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Назад</button>
+                                    <button type="submit" class="btn btn-primary">Сохранить</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 

@@ -27,6 +27,14 @@
                             <#if model.properties??>
                                 <#list model.properties as property>
                                     <h4 class="card-title">Имущество</h4>
+                                    <#assign propertyId>${property.id}</#assign>
+                                    <div class="dropdown ">
+                                        <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Редактировать:</button>
+                                        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                            <a class="dropdown-item" href="/property/edit/${propertyId}">Изменить</a>
+                                            <a class="dropdown-item" href="/property/delete/${propertyId}">Удалить</a>
+                                        </div>
+                                    </div>
                                     <ul class="list-group list-group-flush">
                                         <li class="list-group-item">Город: ${property.city.name}</li>
                                         <li class="list-group-item">Улица: ${property.street.name}</li>
@@ -35,7 +43,6 @@
                                         <li class="list-group-item">Корпус дома: ${property.buildingNumber}</li>
                                         <li class="list-group-item">Номер квартиры: ${property.flatNumber}</li>
                                     </ul>
-                                    <a href="#" class="btn btn-info">Редактировать</a>
                                 </#list>
                             </#if>
 

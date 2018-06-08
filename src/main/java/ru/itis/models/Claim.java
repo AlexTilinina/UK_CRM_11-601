@@ -30,6 +30,9 @@ public class Claim {
 
     private String answer;
 
+    @Column(name = "file_path")
+    private String filePath;
+
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "owner_id")
     private PropertyOwner propertyOwner;

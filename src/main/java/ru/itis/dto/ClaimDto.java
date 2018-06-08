@@ -1,6 +1,8 @@
 package ru.itis.dto;
 
 import lombok.*;
+import org.springframework.web.multipart.MultipartFile;
+
 
 @Getter
 @Setter
@@ -11,5 +13,5 @@ public class ClaimDto {
 
     private String title;
     private String description;
-    private String file;
+    private MultipartFile file;
 }

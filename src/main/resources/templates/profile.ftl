@@ -21,12 +21,14 @@
                     </div>
                     <div class="card-body">
                         <h4 class="card-title">${model.user.firstName} ${model.user.secondName} ${model.user.lastName}</h4>
-                                <#if model.user.employee??>
+                                <#if (model.role == "EMPLOYEE")>
                                     <p class="card-text">Должность: ${model.user.employee.position.name}</p>
-                                <#else >
+                                <#elseif (model.role == "USER")>
                                     <p class="card-text">Город: ${model.user.owner.city.name}</p>
+                                <#else >
                                 </#if>
-                        <a href="#" class="btn btn-info">Редактировать</a>
+                            <#assign id>${model.user.id}</#assign>
+                        <a href="/profile/edit/${id}" class="btn btn-info">Редактировать</a>
                     </div>
                 </div>
             </div>

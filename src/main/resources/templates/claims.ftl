@@ -20,20 +20,6 @@
                         <button type="submit" class="btn btn-info brn-sm">Применить</button>
                     </form>
                 </div>
-
-                <div class="card card-body mb-2">
-                    <h3>Фильтрация</h3>
-                    <form action="/claims/filter" method="post">
-                        <div class="form-group">
-                            <label for="filter">Сортировать заявки по ответу:</label>
-                            <select class="form-control" id="filter" name="filter">
-                                <option value="answer">С ответом</option>
-                                <option value="not_answer">Без ответа</option>
-                            </select>
-                        </div>
-                        <button type="submit" class="btn btn-info brn-sm">Применить</button>
-                    </form>
-                </div>
             </div>
             <div class="col-9">
                 <div class="row mb-2">
@@ -55,6 +41,10 @@
                                   </#if>
 
                                   <p class="card-text">${claim.description}</p>
+                                  <#if claim.filePath??>
+                                      <#assign filePath>${claim.filePath}</#assign>
+                                  <p><a href="files\\${filePath}" download>Скачать файл</a></p>
+                                  </#if>
 
                                   <#if model.employee?? >
                                     <h6 class="card-subtitle mb-2 text-muted">${claim.propertyOwner.user.firstName} ${claim.propertyOwner.user.secondName}</h6>

@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
+import ru.itis.dto.EditProfileDto;
 import ru.itis.dto.EmployeeRegistration;
 import ru.itis.models.Employee;
 import ru.itis.models.Position;
@@ -11,6 +12,7 @@ import ru.itis.models.Role;
 import ru.itis.models.User;
 import ru.itis.repositories.EmployeeRepository;
 import ru.itis.repositories.PositionRepository;
+import ru.itis.repositories.UserRepository;
 
 import java.util.HashSet;
 import java.util.Set;
@@ -26,6 +28,9 @@ public class EmployeeService {
 
     @Autowired
     private PositionRepository positionRepository;
+
+    @Autowired
+    private UserRepository userRepository;
 
     @Transactional
     public void register(EmployeeRegistration employeeRegistration) {
@@ -51,7 +56,6 @@ public class EmployeeService {
         employee.setPosition(position);
         user.setEmployee(employee);
 
-        positionRepository.save(position);
         employeeRepository.save(employee);
     }
 
@@ -64,5 +68,17 @@ public class EmployeeService {
         Set<Employee> employees = position.getEmployees();
         employees.add(employee);
         position.setEmployees(employees);
+    }
+
+    public void edit(EditProfileDto editProfileDto, Long id) {
+        User user = userRepository.findById(id);
+        Employee employee = user.getEmployee();
+        user.setFirstName(editProfileDto.getFirstName());
+        user.setSecondName(editProfileDto.getSecondName());
+        user.setLastName(editProfileDto.getLastName());
+        Position position = positionRepository.findPositionByName(editProfileDto.getPosition());
+        employee.setPosition(position);
+        userRepository.save(user);
+        employeeRepository.save(employee);
     }
 }

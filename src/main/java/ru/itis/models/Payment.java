@@ -22,7 +22,7 @@ public class Payment {
     @JoinColumn(name = "owner_id")
     private PropertyOwner propertyOwner;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @OneToOne
     @JoinColumn(name = "bill_id")
     private Bill bill;
 

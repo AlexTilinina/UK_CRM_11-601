@@ -1,16 +1,15 @@
 package ru.itis.controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.Authentication;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.itis.dto.StreetDto;
-import ru.itis.services.CityService;
-import ru.itis.services.PositionService;
-import ru.itis.services.PropertyTypeService;
-import ru.itis.services.StreetService;
+import ru.itis.models.User;
+import ru.itis.services.*;
 
 @Controller
 public class AdminController {
@@ -27,12 +26,21 @@ public class AdminController {
     @Autowired
     private StreetService streetService;
 
+    @Autowired
+    private AuthenticationService authenticationService;
+
+    @Autowired
+    private ServiceTypeService serviceTypeService;
+
     @GetMapping("/admin/setting")
-    public String getSetting(@ModelAttribute("model")ModelMap model){
+    public String getSetting(Authentication authentication, @ModelAttribute("model")ModelMap model){
+        User user = authenticationService.getUserByAuthentication(authentication);
         model.addAttribute("cities", cityService.getAllCities());
         model.addAttribute("positions", positionService.getAllPositions());
         model.addAttribute("propertyTypes", propertyTypeService.getAllPropertyTypes());
         model.addAttribute("streets", streetService.getAllStreets());
+        model.addAttribute("services", serviceTypeService.getAllServices());
+        model.addAttribute("role", user.getRole().toString());
         return "admin-setting";
     }
 
@@ -57,6 +65,12 @@ public class AdminController {
     @PostMapping("/admin/setting/add/street")
     public String addStreet(@ModelAttribute("street")StreetDto streetDto){
         streetService.add(streetDto);
+        return "redirect:/admin/setting";
+    }
+
+    @PostMapping("/admin/setting/add/service")
+    public String addService(@ModelAttribute("service")String service){
+        serviceTypeService.add(service);
         return "redirect:/admin/setting";
     }
 }

@@ -19,4 +19,8 @@ public class AuthenticationService {
         Long userId = currentUser.getId();
         return userRepository.findById(userId);
     }
+
+    public User getUserById(Long id) {
+        return userRepository.findById(id);
+    }
 }

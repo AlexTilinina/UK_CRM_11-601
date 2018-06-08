@@ -11,7 +11,6 @@ $(document).ready(function() {
             data: JSON.stringify(city),
             dataType: 'json',
             success: function (result) {
-                console.log(result);
                 var option = "";
                 result.forEach(function (i, course) {
                     option += "<option value=" + result[course] + ">" + result[course] + "</option>";
@@ -19,7 +18,6 @@ $(document).ready(function() {
                 $("#street-list").html(option);
             },
             error: function (e) {
-                alert("Error!")
                 console.log("ERROR: ", e);
             }
         });

@@ -8,7 +8,7 @@
                 <div class="card card-signup">
                     <h2 class="card-title text-center">Создать заявку</h2>
                     <div class="card-body">
-                        <form class="form" method="post" action="/claims/add/">
+                        <form class="form" method="post" action="/claims/add/" enctype="multipart/form-data">
                             <div class="form-group">
                                 <label class="left-label" for="inputTitle">Введите название</label>
                                 <div class="input-group">
@@ -32,6 +32,16 @@
                                     <textarea type="text" class="form-control" id="inputDescription" name="description" placeholder="Проблема" required></textarea>
                                 </div>
                             </div>
+
+                            <div class="form-group bmd-form-group">
+                                <label class="left-label bmd-label-static" for="addFile">Добавьте файл:</label>
+                            </div>
+                            <div class="input-group">
+                                <div class="fileinput fileinput-new text-center" data-provides="fileinput">
+                                    <input type="file" name="file" id="addFile"/>
+                                </div>
+                            </div>
+
                             <div class="card-footer justify-content-center">
                                 <button type="submit" class="btn btn-primary btn-lg btn-success">Сохранить</button>
                             </div>

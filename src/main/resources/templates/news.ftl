@@ -11,17 +11,21 @@
 
                       <div class="card-body d-flex flex-column align-items-start">
                  <#assign id>${n.id}</#assign>
-                          <div class="row">
-                              <div class="col float-right">
-                                  <div class="dropdown ">
-                                      <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Редактировать:</button>
-                                      <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
-                                          <a class="dropdown-item" href="/news/edit/${id}">Изменить</a>
-                                          <a class="dropdown-item" href="/api/news/delete/${id}">Удалить</a>
-                                      </div>
-                                  </div>
-                              </div>
-                          </div>
+                <#if model.role??>
+                    <#if (model.role == "EMPLOYEE") || (model.role == "ADMIN")>
+                <div class="row">
+                    <div class="col float-right">
+                        <div class="dropdown ">
+                            <button class="btn btn-info btn-sm dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">Редактировать:</button>
+                            <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+                                <a class="dropdown-item" href="/news/edit/${id}">Изменить</a>
+                                <a class="dropdown-item" href="/api/news/delete/${id}">Удалить</a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                    </#if>
+                </#if>
                           <div class="row">
                               <div class="col">
                                   <h3 class="mb-0 mt-0">
@@ -59,5 +63,3 @@
         </nav>
     </div>
 <@footer.page></@footer.page>
-
-

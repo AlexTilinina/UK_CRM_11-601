@@ -42,11 +42,14 @@ public class ClaimController {
                 model.addAttribute("employee", employee);
             }
         }
+        model.addAttribute("role", user.getRole().toString());
         return "claims";
     }
 
     @GetMapping("/claims/add")
-    public String getAddClaim() {
+    public String getAddClaim(Authentication authentication, @ModelAttribute("model") ModelMap model) {
+        User user = authenticationService.getUserByAuthentication(authentication);
+        model.addAttribute("role", user.getRole().toString());
         return "add-claim";
     }
 
