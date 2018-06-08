@@ -15,7 +15,6 @@ public class FileService {
     @Value("${storage.path}")
     private String storagePath;
 
-
     public void upload(MultipartFile file){
         try {
             byte[] bytes = file.getBytes();

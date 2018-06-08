@@ -34,13 +34,11 @@ public class AdminController {
 
     @GetMapping("/admin/setting")
     public String getSetting(Authentication authentication, @ModelAttribute("model")ModelMap model){
-        User user = authenticationService.getUserByAuthentication(authentication);
         model.addAttribute("cities", cityService.getAllCities());
         model.addAttribute("positions", positionService.getAllPositions());
         model.addAttribute("propertyTypes", propertyTypeService.getAllPropertyTypes());
         model.addAttribute("streets", streetService.getAllStreets());
         model.addAttribute("services", serviceTypeService.getAllServices());
-        model.addAttribute("role", user.getRole().toString());
         return "admin-setting";
     }
 

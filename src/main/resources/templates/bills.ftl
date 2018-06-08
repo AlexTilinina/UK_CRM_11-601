@@ -3,7 +3,11 @@
 <@header.page></@header.page>
     <div class="container">
         <h1>Произведенные оплаты</h1>
-        <a href="/payment" class="btn btn-primary btn-lg" role="button">Оплатить услугу</a>
+        <#if model.role??>
+            <#if (model.role == "USER")>
+                <a href="/payment" class="btn btn-primary btn-lg" role="button">Оплатить услугу</a>
+            </#if>
+        </#if>
         <div class="row mb-2">
           <#list model.bills as bill>
               <div class="col-md-4">

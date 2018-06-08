@@ -24,16 +24,12 @@ public class MainPageController {
     private NewsService newsService;
 
     @GetMapping("/")
-    public String redirectToNews(){
+    public String redirectToNews(Authentication authentication, @ModelAttribute("model") ModelMap model){
         return "redirect:/news";
     }
 
     @GetMapping("/news")
     public String getNews(Authentication authentication, @ModelAttribute("model") ModelMap model, Pageable pageable) {
-        if (authentication != null) {
-            User user = authenticationService.getUserByAuthentication(authentication);
-            model.addAttribute("role", user.getRole().toString());
-        }
         if (pageable.getPageSize() == 20){
             pageable = new PageRequest(0, 6);
         }
@@ -45,26 +41,20 @@ public class MainPageController {
         model.addAttribute("news", news.getContent());
         model.addAttribute("page", pageable.getPageNumber());
         model.addAttribute("stop", stop);
-
         return "news";
 
     }
 
     @GetMapping("/news/{id}")
-    public String getViewNews(Authentication authentication, @PathVariable("id") Long id, @ModelAttribute("model") ModelMap model){
+    public String getViewNews(Authentication authentication, @PathVariable("id") Long id,
+                              @ModelAttribute("model") ModelMap model){
         News news = newsService.getFullNews(id);
         model.addAttribute("news", news);
-        if (authentication != null) {
-            User user = authenticationService.getUserByAuthentication(authentication);
-            model.addAttribute("role", user.getRole().toString());
-        }
         return "view-news";
     }
 
     @GetMapping("/news/add")
     public String getViewNews(Authentication authentication, @ModelAttribute("model")ModelMap model) {
-        User user = authenticationService.getUserByAuthentication(authentication);
-        model.addAttribute("role", user.getRole().toString());
         return "add-news";
     }
 
@@ -78,8 +68,6 @@ public class MainPageController {
     public String editNews(Authentication authentication, @ModelAttribute("model")ModelMap model, @PathVariable("id")Long id){
         News news = newsService.getFullNews(id);
         model.addAttribute("news", news);
-        User user = authenticationService.getUserByAuthentication(authentication);
-        model.addAttribute("role", user.getRole().toString());
         return "edit-news";
     }
 
@@ -90,7 +78,7 @@ public class MainPageController {
     }
 
     @GetMapping("/api/news/delete/{id}")
-    public String deleteNews(@PathVariable("id") Long id) {
+    public String deleteNews(Authentication authentication, @ModelAttribute("model") ModelMap model, @PathVariable("id") Long id) {
         newsService.delete(id);
         return "redirect:/news";
     }

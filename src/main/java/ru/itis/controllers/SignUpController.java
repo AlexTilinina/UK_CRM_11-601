@@ -16,6 +16,7 @@ import ru.itis.services.*;
 
 import javax.validation.Valid;
 
+@Controller
 public class SignUpController {
 
     @Autowired
@@ -34,7 +35,7 @@ public class SignUpController {
     private AuthenticationService authenticationService;
 
     @GetMapping("/sign-up")
-    public String getSignup(@ModelAttribute("model")ModelMap model){
+    public String getSignup(Authentication authentication, @ModelAttribute("model") ModelMap model){
         model.addAttribute("cities", cityService.getAllCities());
         return "signup";
     }
@@ -49,7 +50,7 @@ public class SignUpController {
     public String getEmployeeSignup(Authentication authentication, @ModelAttribute("model")ModelMap model){
         model.addAttribute("positions", positionService.getAllPositions());
         User user = authenticationService.getUserByAuthentication(authentication);
-        model.addAttribute("role", user.getRole().toString());
+//        model.addAttribute("role", user.getRole().toString());
         return "employee-signup";
     }
 

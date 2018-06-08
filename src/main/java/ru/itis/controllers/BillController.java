@@ -33,7 +33,7 @@ public class BillController {
     @GetMapping("/bills")
     public String getBills(Authentication authentication, @ModelAttribute("model") ModelMap model) {
         User user = authenticationService.getUserByAuthentication(authentication);
-        model.addAttribute("role", user.getRole().toString());
+
         if (user.getRole().equals(Role.USER)) {
             model.addAttribute("bills", billService.getAllBills(user));
         }
@@ -46,7 +46,7 @@ public class BillController {
     @GetMapping("/payment")
     public String getAddBills(Authentication authentication, @ModelAttribute("model") ModelMap model) {
         User user = authenticationService.getUserByAuthentication(authentication);
-        model.addAttribute("role", user.getRole().toString());
+
         model.addAttribute("properties", user.getOwner().getProperties());
         model.addAttribute("services", serviceTypeService.getAllServices());
         return "add-bills";
@@ -56,7 +56,6 @@ public class BillController {
     public String addBills(Authentication authentication, @ModelAttribute("model") ModelMap model,
                            @ModelAttribute("payment") PaymentDto paymentDto) {
         User user = authenticationService.getUserByAuthentication(authentication);
-        model.addAttribute("role", user.getRole().toString());
         paymentService.add(paymentDto, user);
         return "redirect:/bills";
     }

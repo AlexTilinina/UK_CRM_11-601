@@ -22,24 +22,23 @@ public class ClaimsService {
     private FileService fileService;
 
     public List<Claim> getAllClaimsByOwner(PropertyOwner owner) {
-
         return claimRepository.findAllByPropertyOwner(owner);
     }
 
     public List<Claim> getAllClaims() {
-
         return claimRepository.findAll();
     }
 
     public void add(ClaimDto claimDto, PropertyOwner propertyOwner) {
         fileService.upload(claimDto.getFile());
+        String filePath = claimDto.getFile().getOriginalFilename();
         Claim claim = Claim.builder()
                 .title(claimDto.getTitle())
                 .description(claimDto.getDescription())
                 .state(State.NEW)
                 .date(new Date())
                 .propertyOwner(propertyOwner)
-                .filePath(claimDto.getFile().getOriginalFilename())
+                .filePath(filePath.isEmpty() ? null : filePath)
                 .build();
         claimRepository.save(claim);
     }

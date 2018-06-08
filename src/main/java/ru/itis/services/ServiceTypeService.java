@@ -14,8 +14,16 @@ public class ServiceTypeService {
     @Autowired
     private ServiceTypeRepository serviceTypeRepository;
 
+    private final static String ELECTRICITY = "Внести показания электричества";
+    private final static String GAS = "Внести показания газа";
+    private final static String WATER = "Внести показания воды";
+
     public List<ServiceType> getAllServices(){
-        return serviceTypeRepository.findAll();
+        List<ServiceType> serviceTypeList = serviceTypeRepository.findAll();
+        for (int i = 0; i < 3; i++) {
+            serviceTypeList.remove(serviceTypeList.get(0));
+        }
+        return serviceTypeList;
     }
 
     public void add(String service) {
@@ -25,5 +33,28 @@ public class ServiceTypeService {
                 .meters(new HashSet<>())
                 .build();
         serviceTypeRepository.save(serviceType);
+    }
+
+    private ServiceType getElectricity() {
+        return serviceTypeRepository.findByType(ELECTRICITY);
+    }
+
+    private ServiceType getGas() {
+        return serviceTypeRepository.findByType(GAS);
+    }
+
+    private ServiceType getWater() {
+        return serviceTypeRepository.findByType(WATER);
+    }
+
+    public ServiceType getService(String service) {
+        switch (service) {
+            case "gas":
+                return getGas();
+            case "electricity":
+                return getElectricity();
+            default:
+                return getWater();
+        }
     }
 }

@@ -45,17 +45,17 @@ public class ProfileController {
     public String getProfile(Authentication authentication, @ModelAttribute("model")ModelMap model) {
         User user = authenticationService.getUserByAuthentication(authentication);
         model.addAttribute("user", user);
-        model.addAttribute("role", user.getRole().toString());
+//        model.addAttribute("role", user.getRole().toString());
         return "profile";
     }
 
     @GetMapping("/profile/edit/{id}")
-    public String getEditProfile(@PathVariable Long id, @ModelAttribute("model")ModelMap model) {
+    public String getEditProfile(Authentication authentication, @ModelAttribute("model")ModelMap model, @PathVariable Long id) {
         User user = authenticationService.getUserById(id);
         model.addAttribute("cities", cityService.getAllCities());
         model.addAttribute("user", user);
         model.addAttribute("types", propertyTypeService.getAllPropertyTypes());
-        model.addAttribute("role", user.getRole().toString());
+//        model.addAttribute("role", user.getRole().toString());
         model.addAttribute("positions", positionService.getAllPositions());
         return "edit-profile";
     }
@@ -84,7 +84,7 @@ public class ProfileController {
         if (!user.getOwner().getProperties().isEmpty()) {
             model.addAttribute("properties", user.getOwner().getProperties());
         }
-        model.addAttribute("role", user.getRole().toString());
+//        model.addAttribute("role", user.getRole().toString());
         return "property";
     }
 
@@ -96,12 +96,12 @@ public class ProfileController {
     }
 
     @GetMapping("/property/edit/{id}")
-    public String getEditProperty(Authentication authentication, @PathVariable Long id, @ModelAttribute("model") ModelMap model) {
+    public String getEditProperty(Authentication authentication, @ModelAttribute("model") ModelMap model, @PathVariable Long id) {
         model.addAttribute("property", propertyService.getPropertyById(id));
         model.addAttribute("cities", cityService.getAllCities());
         model.addAttribute("types", propertyTypeService.getAllPropertyTypes());
         User user = authenticationService.getUserByAuthentication(authentication);
-        model.addAttribute("role", user.getRole().toString());
+//        model.addAttribute("role", user.getRole().toString());
         return "edit-property";
     }
 
@@ -112,7 +112,7 @@ public class ProfileController {
     }
 
     @GetMapping("/property/delete/{id}")
-    public String deleteNews(@PathVariable("id") Long id) {
+    public String deleteNews(Authentication authentication, @ModelAttribute("model") ModelMap model, @PathVariable("id") Long id) {
         propertyService.delete(id);
         return "redirect:/property";
     }
