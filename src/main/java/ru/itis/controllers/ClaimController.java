@@ -79,7 +79,7 @@ public class ClaimController {
                 model.addAttribute("claims", claims);
             }
         }
-        else if (user.getRole().equals(Role.EMPLOYEE)) {
+        else if (user.getRole().equals(Role.EMPLOYEE) || user.getRole().equals(Role.ADMIN)) {
             Employee employee = user.getEmployee();
             List<Claim> claims = claimsService.getAllByFilter(filter);
             if (!claims.isEmpty()){
@@ -100,7 +100,7 @@ public class ClaimController {
 
     @PostMapping("/claims/add/state/{id}")
     public String addAnswer(@PathVariable("id") Long id, @ModelAttribute("state") String state) {
-        claimsService.addState(id, state);
+        claimsService.setState(id, state);
         return "redirect:/claims";
     }
 }

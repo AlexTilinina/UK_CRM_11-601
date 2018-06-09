@@ -53,7 +53,7 @@ public class MainPageController {
     }
 
     @GetMapping("/news/add")
-    public String getViewNews(Authentication authentication, @ModelAttribute("model")ModelMap model) {
+    public String getAddNews(Authentication authentication, @ModelAttribute("model")ModelMap model) {
         return "add-news";
     }
 

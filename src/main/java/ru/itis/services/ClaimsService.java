@@ -73,7 +73,7 @@ public class ClaimsService {
         claimRepository.save(claim);
     }
 
-    public void addState(Long id, String state) {
+    public void setState(Long id, String state) {
         Claim claim = claimRepository.findById(id);
         claim.setState(getState(state));
         claimRepository.save(claim);
