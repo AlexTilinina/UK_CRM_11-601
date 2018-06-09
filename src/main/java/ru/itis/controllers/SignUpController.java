@@ -51,6 +51,11 @@ public class SignUpController {
         return "employee-signup";
     }
 
+    @GetMapping("logout")
+    public String logout(){
+        return "redirect:/sign-in";
+    }
+
     @PostMapping("admin/sign-up")
     public String employeeSignUp(@Valid @ModelAttribute("employee")EmployeeRegistration employeeRegistration, BindingResult errors, RedirectAttributes attributes) {
         employeeService.register(employeeRegistration);
