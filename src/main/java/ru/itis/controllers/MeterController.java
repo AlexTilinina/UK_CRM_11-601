@@ -41,7 +41,7 @@ public class MeterController {
     }
 
     @GetMapping("/meters/add/{service}")
-    public String getAddMeterGas(Authentication authentication, @ModelAttribute("model") ModelMap model,
+    public String getAddMeter(Authentication authentication, @ModelAttribute("model") ModelMap model,
                                  @PathVariable("service") String service) {
         User user = authenticationService.getUserByAuthentication(authentication);
         model.addAttribute("properties", user.getOwner().getProperties());

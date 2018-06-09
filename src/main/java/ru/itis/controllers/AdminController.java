@@ -8,7 +8,6 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import ru.itis.dto.StreetDto;
-import ru.itis.models.User;
 import ru.itis.services.*;
 
 @Controller
@@ -25,9 +24,6 @@ public class AdminController {
 
     @Autowired
     private StreetService streetService;
-
-    @Autowired
-    private AuthenticationService authenticationService;
 
     @Autowired
     private ServiceTypeService serviceTypeService;

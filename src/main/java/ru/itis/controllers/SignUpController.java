@@ -11,7 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 import ru.itis.dto.EmployeeRegistration;
 import ru.itis.dto.UserRegistration;
-import ru.itis.models.User;
 import ru.itis.services.*;
 
 import javax.validation.Valid;
@@ -49,8 +48,6 @@ public class SignUpController {
     @GetMapping("admin/sign-up")
     public String getEmployeeSignup(Authentication authentication, @ModelAttribute("model")ModelMap model){
         model.addAttribute("positions", positionService.getAllPositions());
-        User user = authenticationService.getUserByAuthentication(authentication);
-//        model.addAttribute("role", user.getRole().toString());
         return "employee-signup";
     }
 

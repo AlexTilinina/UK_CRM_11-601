@@ -10,7 +10,6 @@ import org.springframework.ui.ModelMap;
 import org.springframework.web.bind.annotation.*;
 import ru.itis.dto.NewsDto;
 import ru.itis.models.News;
-import ru.itis.models.User;
 import ru.itis.services.AuthenticationService;
 import ru.itis.services.NewsService;
 
@@ -46,8 +45,8 @@ public class MainPageController {
     }
 
     @GetMapping("/news/{id}")
-    public String getViewNews(Authentication authentication, @PathVariable("id") Long id,
-                              @ModelAttribute("model") ModelMap model){
+    public String getViewNews(Authentication authentication, @ModelAttribute("model") ModelMap model,
+                              @PathVariable("id") Long id){
         News news = newsService.getFullNews(id);
         model.addAttribute("news", news);
         return "view-news";
