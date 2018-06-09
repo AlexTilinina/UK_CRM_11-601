@@ -1,5 +1,5 @@
-<#import "lib/header.ftl" as header>
-<#import "lib/footer.ftl" as footer>
+<#import "header.ftl" as header>
+<#import "footer.ftl" as footer>
 <@header.page></@header.page>
     <main role="main" class="container">
         <div class="section section-signup">

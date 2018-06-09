@@ -1,5 +1,5 @@
-<#import "lib/header.ftl" as header>
-<#import "lib/footer.ftl" as footer>
+<#import "header.ftl" as header>
+<#import "footer.ftl" as footer>
 <@header.page></@header.page>
     <div class="container">
         <h1>Показания счетчиков</h1>
